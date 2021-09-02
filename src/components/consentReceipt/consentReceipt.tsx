@@ -29,12 +29,7 @@ function ConsentReceipt(props: Props) {
     if(file){
       readJSON();
     }
-    console.log(password);
-    if(password) {
-      localStorage.removeItem("password");
-    }
-
-  },[ file, localStorage]);
+  },[ file]);
  
   return (
     <div className={classes.BoilerPlate}>
