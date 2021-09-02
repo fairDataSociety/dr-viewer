@@ -19,13 +19,7 @@ function Navbar(props: Props) {
   const [pods, setPods] = useState([]);
   const { setShowSaveModal, setPodName, showSaveModal } = props;
   useEffect(() =>{
-     if(localStorage.getItem("password")){
-      const pass = localStorage.getItem("password");
-      setPassword(pass !== null && pass !== undefined? pass: "");
-    }
-    if(password) {
-      localStorage.setItem("password", password);
-    }
+ 
   },[password]);
   return (
     <div className={classes.Navbar}>

@@ -29,6 +29,10 @@ function ConsentReceipt(props: Props) {
     if(file){
       readJSON();
     }
+    console.log(password);
+    if(password) {
+      localStorage.removeItem("password");
+    }
 
   },[ file, localStorage]);
  
@@ -36,7 +40,7 @@ function ConsentReceipt(props: Props) {
     <div className={classes.BoilerPlate}>
     {!password && (
         <LoginComponent setUserPassword={setPassword}></LoginComponent>
-      )}
+    )}
     {password &&  <FetchFileComponent password={password!== null? password: ""} setFile={setFile} fileName={props.match.params.name} directory={props.match.params.directory} podName={props.match.params.pod} ></FetchFileComponent>}
      {password && dataRes &&
         <ConsentViewer data={ dataRes }></ConsentViewer>
