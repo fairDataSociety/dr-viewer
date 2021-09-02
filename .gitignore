@@ -1,0 +1,11 @@
+# APP
+
+node_modules/
+dist/
+build/
+yarn.lock
+yarn-error.log
+.env
+.DS_Store
+package-lock.json
+debug.log
