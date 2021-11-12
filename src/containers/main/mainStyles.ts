@@ -4,10 +4,11 @@ const useStyles = makeStyles(() =>
   createStyles({
     Main: {
       padding:"100px",
-      background:"#6D7392",
-      color:"#9580FF"
+      fontSize: '38px'
     },
-    
+    link:{
+      color: "blue"
+    }
   })
 );
 

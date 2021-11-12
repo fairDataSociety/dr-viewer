@@ -18,14 +18,10 @@ export default function MainWrapper(props: Props) {
         showSaveModal={showSaveModal}
       ></Navbar> */}
       <Switch>
-          {/* <Route exact path='/'>
+          <Route exact path='/'>
             <Main
-              data={data}
-              setData={setData}
-              podName={podName}
-              showSaveModal={showSaveModal}
             ></Main>
-          </Route> */}
+          </Route>
           <Route exact path='/:pod/:directory/:name' component={ConsentReceipt}>
           </Route>
         </Switch>
