@@ -9,12 +9,12 @@ ENV DNS_ADDRESS=$DNS_ADDRESS
 
 WORKDIR /base
 COPY *.json ./
-RUN yarn install
+RUN npm install
 COPY . .
 SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
 RUN if [ ! -z "$DNS_ADDRESS" ]; then find * -type f -exec  sed -i 's:app.fairdrive.fairdatasociety.org:'"$DNS_ADDRESS"':g' {} +; fi
 RUN env |grep REACT > .env
-RUN yarn build
+RUN npm run build
 
 #webserver
 FROM nginx:stable-alpine
