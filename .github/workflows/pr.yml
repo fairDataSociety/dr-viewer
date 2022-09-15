@@ -1,26 +1,29 @@
-name: Node.js CI
+name: PR
 
 on:
-  push:
+  pull_request:
     branches:
-      - master
-      - development
+      - '**'
 
-env:
-  CI: false
 jobs:
   build:
+    name: Pull Request Check
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
     steps:
     - name: checkout
       uses: actions/checkout@v3
       with:
         ref: ${{ github.event.pull_request.head.sha }}
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
     - name: Get npm cache directory
       id: npm-cache-dir
       run: |
@@ -32,7 +35,12 @@ jobs:
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
+    - name: Install npm deps
+      if: steps.npm-cache.outputs.cache-hit != 'true'
+      run: npm ci --cache .npm
     - name: install
       run: npm install
     - name: build
       run: npm run build
+      env:
+        CI: false
