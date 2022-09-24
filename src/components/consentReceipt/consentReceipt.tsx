@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { FetchFileComponent, LoginComponent } from 'fd-t-p';
+import { LoginComponent, LoadFilesComponent } from '@fairdatasociety/fdp-connect';
 import React, { useContext, useState } from "react";
 import { useEffect } from 'react';
 import { ThemeContext } from "../../store/themeContext/themeContext";
@@ -44,7 +44,7 @@ function ConsentReceipt(props: Props) {
     {!password && (
         <LoginComponent setUserPassword={setPassword}></LoginComponent>
       )}
-    {password &&  <FetchFileComponent password={password!== null? password: ""} setFile={setFile} fileName={props.match.params.name} directory={props.match.params.directory} podName={props.match.params.pod} ></FetchFileComponent>}
+    {password &&  <LoadFilesComponent password={password!== null? password: ""} setFile={setFile}   podName={props.match.params.pod} ></LoadFilesComponent>}
      {password && dataRes &&
         <ConsentViewer data={ dataRes }></ConsentViewer>
      }

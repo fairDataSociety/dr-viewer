@@ -4,7 +4,7 @@ import useStyles from "./navbarStyles";
 import {
   ListPodsComponent,
   OpenPodComponent,
-} from "fd-t-p";
+} from "@fairdatasociety/fdp-connect";
 export interface Props {
   file: any;
   setShowSaveModal: any;
