@@ -9,7 +9,7 @@
   "source": "src/index.tsx",
   "dependencies": {
     "@datafund/consent-viewer": "^0.1.8",
-    "@fairdatasociety/fdp-connect": "^0.0.3",
+    "@fairdatasociety/fdp-connect": "^0.0.4",
     "@material-ui/core": "^4.12.4",
     "@material-ui/styles": "^4.11.5",
     "@types/jest": "^25.1.4",
