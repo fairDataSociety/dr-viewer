@@ -17,6 +17,7 @@
     "@types/react-dom": "^16.9.8",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
+    "axios": "^0.21.1",
     "cross-env": "^7.0.2",
     "fd-t-p": "0.0.8",
     "file-saver": "^2.0.5",
@@ -56,5 +57,8 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "devDependencies": {
+    "react-error-overlay": "^6.0.9"
+  }
 }
