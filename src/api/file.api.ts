@@ -9,8 +9,8 @@ export async function downloadFile(
   const writePath = directory ? "/" + formatURL(directory) + "/" : "/";
 
   const formData = new FormData();
-  formData.append("file_path", writePath + filename);
-  formData.append("pod_name", podName);
+  formData.append("filePath", writePath + filename);
+  formData.append("podName", podName);
 
   const downloadFile = await axios.post("file/download", formData, {
     responseType: "blob",
