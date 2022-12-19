@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import useStyles from "./mainStyles";
 
 import { ThemeContext } from "../../store/themeContext/themeContext";
+import Disclaimer from "../../components/disclaimer/disclaimer";
 
 export interface Props {}
 
@@ -22,6 +23,7 @@ export default function Main(props: Props) {
       >
         Fairdrive app
       </a>
+      <Disclaimer />
     </div>
   );
 }
