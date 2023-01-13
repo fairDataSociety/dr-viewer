@@ -1,8 +1,10 @@
 import React, { useState, createContext, ReactNode, FC } from "react";
 import { login } from "../api/user.api";
+import Login from "../components/login/login";
 
 export interface User {
   username: string;
+  password: string;
 }
 
 export interface SessionContext {
@@ -23,7 +25,7 @@ const SessionProvider: FC<SessionContextProps> = ({ children }) => {
     try {
       await login({ userName: username, password });
 
-      const user = { username };
+      const user = { username, password };
 
       setUser(user);
 
@@ -37,6 +39,7 @@ const SessionProvider: FC<SessionContextProps> = ({ children }) => {
 
   return (
     <SessionContext.Provider value={{ user, login: loginUser }}>
+      {!user && <Login />}
       {children}
     </SessionContext.Provider>
   );
