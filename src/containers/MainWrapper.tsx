@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import Navbar from "./navbar/navbar";
-import Main from "./main/main";
 import ConsentReceipt from "../components/consentReceipt/consentReceipt";
 // @ts-ignore
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
+import SessionContext from "../context/session";
+import Login from "../components/login/login";
 export interface Props {}
 export default function MainWrapper(props: Props) {
+  const { user } = useContext(SessionContext);
+
   return (
     <Router>
       <div className="Main">
@@ -17,15 +25,14 @@ export default function MainWrapper(props: Props) {
         showSaveModal={showSaveModal}
       ></Navbar> */}
         <Switch>
-          <Route exact path="/">
-            <Main></Main>
-          </Route>
+          <Route exact path="/login" component={Login} />
           <Route exact path="/:pod/:name" component={ConsentReceipt}></Route>
           <Route
             exact
             path="/:pod/:directory/:name"
             component={ConsentReceipt}
           ></Route>
+          {!user && <Redirect to="/login" />}
         </Switch>
       </div>
     </Router>
