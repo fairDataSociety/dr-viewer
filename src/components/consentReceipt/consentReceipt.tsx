@@ -7,8 +7,7 @@ import useStyles from "./consentReceiptStyles";
 import { ConsentViewer } from "@datafund/consent-viewer";
 import { openPod } from "../../api/pod.api";
 import { downloadFile } from "../../api/file.api";
-import { userStats } from "../../api/user.api";
-import PasswordModal from "../passwordModal/passwordModal";
+import SessionContext, { User } from "../../context/session";
 export interface Props {
   match: {
     params: RouteParams;
@@ -23,28 +22,16 @@ type RouteParams = {
 
 function ConsentReceipt(props: Props) {
   const { theme } = useContext(ThemeContext);
-
+  const { user } = useContext(SessionContext);
   const classes = useStyles({ ...props, ...theme });
   const [file, setFile] = useState<Blob | null>(null);
   const [dataRes, setDataRes] = useState(null);
-  const [password, setPassword] = useState<string | null>(null);
-  const [openPassModal, setOpenPassModal] = useState(false);
-
-  const isLoggedIn = async (): Promise<boolean> => {
-    try {
-      await userStats();
-      return true;
-    } catch (error) {
-      localStorage.setItem("password", "");
-      return false;
-    }
-  };
 
   const loadFile = async (newPassword?: string) => {
     try {
       const { pod, directory, name } = props.match.params;
       try {
-        await openPod(pod, newPassword || (password as string));
+        await openPod(pod, newPassword || ((user as User).password as string));
       } catch (error) {
         // pod might be already open
       }
@@ -55,36 +42,10 @@ function ConsentReceipt(props: Props) {
     }
   };
 
-  const loadPassword = (): boolean => {
-    const password = localStorage.getItem("password");
-
-    if (password) {
-      setPassword(password);
-      return true;
-    }
-
-    return false;
-  };
-
-  const onPasswordEnter = (password: string) => {
-    setPassword(password);
-    setOpenPassModal(false);
-    localStorage.setItem("password", password);
-    loadFile(password);
-  };
-
   const init = async () => {
-    const loggedIn = await isLoggedIn();
-    if (!loggedIn) {
-      // react-router-dom types are causing an error
-      document.location.href = "/";
+    if (!user) {
       return;
     }
-
-    if (!loadPassword()) {
-      return setOpenPassModal(true);
-    }
-
     loadFile();
   };
 
@@ -98,7 +59,7 @@ function ConsentReceipt(props: Props) {
 
   useEffect(() => {
     init();
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     if (file) {
@@ -108,7 +69,6 @@ function ConsentReceipt(props: Props) {
 
   return (
     <div className={classes.BoilerPlate}>
-      {openPassModal && <PasswordModal onPasswordEnter={onPasswordEnter} />}
       {dataRes && <ConsentViewer data={dataRes}></ConsentViewer>}
     </div>
   );

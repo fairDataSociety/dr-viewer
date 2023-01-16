@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import Navbar from "./navbar/navbar";
-import Main from "./main/main";
 import ConsentReceipt from "../components/consentReceipt/consentReceipt";
 // @ts-ignore
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Main from "./main/main";
 export interface Props {}
 export default function MainWrapper(props: Props) {
   return (
@@ -17,9 +17,7 @@ export default function MainWrapper(props: Props) {
         showSaveModal={showSaveModal}
       ></Navbar> */}
         <Switch>
-          <Route exact path="/">
-            <Main></Main>
-          </Route>
+          <Route exact path="/" component={Main} />
           <Route exact path="/:pod/:name" component={ConsentReceipt}></Route>
           <Route
             exact

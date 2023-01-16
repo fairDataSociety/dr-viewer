@@ -12,17 +12,7 @@ export default function Main(props: Props) {
 
   return (
     <div className={classes.Main}>
-      Welcome to Receipt viewer, to open the consent please login to{" "}
-      <a
-        target="_blank"
-        className={classes.link}
-        href={`${
-          process.env.REACT_APP_FAIRDRIVE ||
-          "https://app.fairdrive.fairdatasociety.org/"
-        }?fairos=true`}
-      >
-        Fairdrive app
-      </a>
+      Welcome to Receipt viewer, to open the consent please login.
       <Disclaimer />
     </div>
   );
