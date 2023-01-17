@@ -39,7 +39,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts --openssl-legacy-provider build",
     "deploy": "rm -r /home/ubuntu/www/app.crviewer.fairdatasociety.org && mv ./build /home/ubuntu/www/app.crviewer.fairdatasociety.org",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
