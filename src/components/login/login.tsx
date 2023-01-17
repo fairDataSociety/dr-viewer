@@ -15,7 +15,7 @@ function Login() {
 
   const classes = useStyles({ ...theme });
 
-  const onLogin = async (event) => {
+  const onLogin = async (event: { preventDefault: () => void }) => {
     try {
       event.preventDefault();
       setLoading(true);
