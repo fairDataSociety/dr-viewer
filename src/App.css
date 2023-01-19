@@ -6,3 +6,8 @@
   font-size: 2rem;
   overflow: hidden;
 } */
+
+/* Temporary resolves react scripts bug */
+iframe {
+  z-index: -1 !important;
+}
