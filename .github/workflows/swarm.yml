@@ -22,11 +22,13 @@ jobs:
               echo "REACT_APP_FAIROSHOST=https://fairos.fairdatasociety.org" >> "$GITHUB_ENV"
               echo "REACT_APP_FAIRDRIVEHOST=https://app.fairdrive.fairdatasociety.org" >> "$GITHUB_ENV"
               echo "SWARM_URL=https://gateway.fairdatasociety.org/proxy/" >> "$GITHUB_ENV"
+              echo "PURGE_URL=https://fairos.fairdatasociety.org" >> "$GITHUB_ENV"
           else
               echo "SIGNER=SIGNER_$GITHUB_REF_NAME" >> "$GITHUB_ENV"
               echo "REACT_APP_FAIROSHOST=https://fairos.dev.fairdatasociety.org" >> "$GITHUB_ENV"
               echo "REACT_APP_FAIRDRIVEHOST=https://app.fairdrive.dev.fairdatasociety.org" >> "$GITHUB_ENV"
               echo "SWARM_URL=https://gateway.dev.fairdatasociety.org/proxy/" >> "$GITHUB_ENV"
+              echo "PURGE_URL=https://fairos.fairdatasociety.org" >> "$GITHUB_ENV"
           fi
 
       - name: checkout
@@ -93,4 +95,4 @@ jobs:
         env:
           TOKEN: '${{ secrets.purge_token }}'
         run: |
-          curl -s ${{ env.SWARM_URL }}/deploy/purge?token=$TOKEN -H "site: fairdrive.fairdatasociety"
+          curl -s ${{ env.PURGE_URL }}/deploy/purge?token=$TOKEN -H "site: fairdrive.fairdatasociety"
