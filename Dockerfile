@@ -14,7 +14,7 @@ COPY . .
 SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
 RUN if [ ! -z "$DNS_ADDRESS" ]; then find * -type f -exec  sed -i 's:app.fairdrive.fairdatasociety.org:'"$DNS_ADDRESS"':g' {} +; fi
 RUN env |grep REACT > .env
-RUN npm run build
+RUN npm run docker
 
 #webserver
 FROM nginx:stable-alpine
