@@ -56,7 +56,9 @@ jobs:
         name: List the state of node modules
         continue-on-error: true
         run: npm list
-
+      - name: copy vars to .env
+        run: |
+          env |grep 'REACT' > .env
       - name: install
         run: npm install
       - name: build
