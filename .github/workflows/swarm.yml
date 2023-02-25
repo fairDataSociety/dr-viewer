@@ -62,10 +62,11 @@ jobs:
       - name: install
         run: npm install
       - name: build
-        run: npm run build --openssl-legacy-provider
+        run: npm run build
         env:
           REACT_APP_FAIRDRIVEHOST: ${{ steps.vars.outputs.REACT_APP_FAIRDRIVEHOST }}
           REACT_APP_FAIROSHOST: ${{ steps.vars.outputs.REACT_APP_FAIROSHOST }}
+          NODE_OPTIONS: --openssl-legacy-provider
           CI: false
 
       - name: Upload
