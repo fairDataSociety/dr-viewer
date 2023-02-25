@@ -19,8 +19,8 @@ jobs:
         run: |
           if [ "$GITHUB_REF_NAME" == 'master' ]; then
               echo "SIGNER=SIGNER_$GITHUB_REF_NAME" >> "$GITHUB_ENV"
-              echo "REACT_APP_FAIROSHOST=https://fairos.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "REACT_APP_FAIRDRIVEHOST=https://fairdrive.fairdatasociety.org" >> "$GITHUB_ENV"
+              echo "REACT_APP_FAIROSHOST=https://fairos.fairdatasociety.org/" >> "$GITHUB_ENV"
+              echo "REACT_APP_FAIRDRIVEHOST=https://fairdrive.fairdatasociety.org/" >> "$GITHUB_ENV"
               echo "SWARM_URL=https://gateway.fairdatasociety.org/proxy/" >> "$GITHUB_ENV"
               echo "PURGE_URL=https://fairos.fairdatasociety.org" >> "$GITHUB_ENV"
               echo "DEPLOYMENT=." >> "$GITHUB_ENV"
