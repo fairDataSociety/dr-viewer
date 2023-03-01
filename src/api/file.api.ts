@@ -4,13 +4,13 @@ import axios from "./axios";
 
 export async function downloadFile(
   podName: string,
-  directory: string,
-  filename: string
+  filePath: string
 ): Promise<Blob> {
-  const writePath = directory ? "/" + formatURL(directory) + "/" : "/";
-
   const formData = new FormData();
-  formData.append("filePath", writePath + filename);
+  formData.append(
+    "filePath",
+    filePath.startsWith("/") ? filePath : `/${filePath}`
+  );
   formData.append("podName", podName);
 
   const downloadFile = await axios.post("v1/file/download", formData, {
