@@ -17,13 +17,7 @@ export default function MainWrapper(props: Props) {
         showSaveModal={showSaveModal}
       ></Navbar> */}
         <Switch>
-          <Route exact path="/" component={Main} />
-          <Route exact path="/:pod/:name" component={ConsentReceipt}></Route>
-          <Route
-            exact
-            path="/:pod/:directory/:name"
-            component={ConsentReceipt}
-          ></Route>
+          <Route exact path="/" component={ConsentReceipt} />
         </Switch>
       </div>
     </Router>
