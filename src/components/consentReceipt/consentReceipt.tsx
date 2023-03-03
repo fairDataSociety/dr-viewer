@@ -34,7 +34,11 @@ function ConsentReceipt(props: Props) {
   const classes = useStyles({ ...props, ...theme });
   const [file, setFile] = useState<Blob | null>(null);
   const [dataRes, setDataRes] = useState(null);
-  const [error, setError] = useState<unknown>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const getParams = (): URLSearchParams => {
+    return new URLSearchParams(props.location.search);
+  };
 
   const tryOpenPod = async (pod: string) => {
     try {
@@ -54,7 +58,7 @@ function ConsentReceipt(props: Props) {
     console.error(error);
     localStorage.setItem("password", "");
     setDataRes(null);
-    setError(error);
+    setError(String(error));
   };
 
   const saveFile = async (data: string, newPassword?: string) => {
@@ -77,11 +81,21 @@ function ConsentReceipt(props: Props) {
 
   const loadFile = async () => {
     try {
-      const { pod, directory, name } = props.match.params;
+      const params = getParams();
+      const pod = params.get("pod");
+      const filePath = params.get("file");
+
+      if (!pod) {
+        throw new Error("Pod is not specified");
+      }
+
+      if (!filePath) {
+        throw new Error("File is not specified");
+      }
 
       await tryOpenPod(pod);
 
-      const file = await downloadFile(pod, directory, name);
+      const file = await downloadFile(pod, filePath);
       setFile(file);
     } catch (error) {
       handleError(error);
@@ -92,7 +106,7 @@ function ConsentReceipt(props: Props) {
     if (!user) {
       return;
     }
-    const data = new URLSearchParams(props.location.search).get("data");
+    const data = getParams().get("data");
 
     if (data) {
       return saveFile(data);
