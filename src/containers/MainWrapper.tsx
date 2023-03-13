@@ -17,7 +17,7 @@ export default function MainWrapper(props: Props) {
         showSaveModal={showSaveModal}
       ></Navbar> */}
         <Switch>
-          <Route exact path="/" component={ConsentReceipt} />
+          <Route exact path="*" component={ConsentReceipt} />
         </Switch>
       </div>
     </Router>
