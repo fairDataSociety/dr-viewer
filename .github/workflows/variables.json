@@ -1,0 +1,71 @@
+{
+  "Variables": [
+    {
+      "Name": "DEPLOYMENT",
+      "Value": ".",
+      "Scope": {
+        "Environment": [
+          "master",
+	  "swarm"
+        ]
+      }
+    },
+    {
+      "Name": "DEPLOYMENT",
+      "Value": ".dev.",
+      "Scope": {
+        "Environment": [
+          "development"
+        ]
+      }
+    },
+    {
+      "Name": "REACT_APP_FAIROSHOST",
+      "Value": "https://fairos#{DEPLOYMENT}fairdatasociety.org",
+      "Scope": {
+        "Environment": [
+          "master",
+          "development"
+        ]
+      }
+    },
+    {
+      "Name": "REACT_APP_FAIROSHOST",
+      "Value": "https://fairos#{DEPLOYMENT}fairdatasociety.org",
+      "Scope": {
+        "Environment": [
+          "swarm"
+        ]
+      }
+    },
+    {
+      "Name": "REACT_APP_FAIRDRIVEHOST",
+      "Value": "https://app.fairdrive#{DEPLOYMENT}fairdatasociety.org",
+      "Scope": {
+        "Environment": [
+          "master",
+          "development"
+        ]
+      }
+    },
+    {
+      "Name": "REACT_APP_FAIRDRIVEHOST",
+      "Value": "https://app#{DEPLOYMENT}fairdrive.io",
+      "Scope": {
+        "Environment": [
+          "swarm"
+        ]
+      }
+    },
+    {
+      "Name": "PURGE_URL",
+      "Value": "https://fairdrive#{DEPLOYMENT}fairdatasociety.org",
+      "Scope": {}
+    },
+    {
+      "Name": "SWARM_URL",
+      "Value": "https://gateway#{DEPLOYMENT}fairdatasociety.org/proxy/",
+      "Scope": {}
+    }
+  ]
+}

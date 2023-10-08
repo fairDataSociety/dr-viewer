@@ -14,30 +14,16 @@ jobs:
       matrix:
         node-version: [18.x]
     steps:
-      - name: set vars per branch
-        id: vars
-        run: |
-          if [ "$GITHUB_REF_NAME" == 'master' ]; then
-              echo "SIGNER=SIGNER_$GITHUB_REF_NAME" >> "$GITHUB_ENV"
-              echo "REACT_APP_FAIROSHOST=https://fairos.fairdatasociety.org/" >> "$GITHUB_ENV"
-              echo "REACT_APP_FAIRDRIVEHOST=https://fairdrive.fairdatasociety.org/" >> "$GITHUB_ENV"
-              echo "SWARM_URL=https://gateway.fairdatasociety.org/proxy/" >> "$GITHUB_ENV"
-              echo "PURGE_URL=https://fairos.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "DEPLOYMENT=." >> "$GITHUB_ENV"
-          else
-              echo "SIGNER=SIGNER_$GITHUB_REF_NAME" >> "$GITHUB_ENV"
-              echo "REACT_APP_FAIROSHOST=https://fairos.dev.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "REACT_APP_FAIRDRIVEHOST=https://fairdrive.dev.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "SWARM_URL=https://gateway.dev.fairdatasociety.org/proxy/" >> "$GITHUB_ENV"
-              echo "PURGE_URL=https://fairos.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "DEPLOYMENT=.dev." >> "$GITHUB_ENV"
-          fi
-
       - name: checkout
         uses: actions/checkout@v3
+
+      - name: Set environment specific variables
+        uses: jnus/json-variables@v1.0
         with:
-          submodules: true 
-          fetch-depth: 1
+          scope: "swarm"
+          configFile: '.github/workflows/variables.json'
+          secrets: '${{ toJson(secrets.github_token) }}'
+
       - name: Cache node modules
         id: cache-npm
         uses: actions/cache@v3
@@ -96,4 +82,4 @@ jobs:
           echo 'Feed Manifest: ${{ steps.swarm-feed.outputs.manifest }}'
       - name: purge cache
         run: |
-          curl -s ${{ env.PURGE_URL }}/deploy/purge?token=${{ secrets.purge_token }} -H "site: fairdrive${{ env.DEPLOYMENT }}fairdatasociety.org" -H "uri: apps/consent/"
+          curl -s ${{ env.PURGE_URL }}/deploy/purge?token=${{ secrets.purge_token }} -H "site: crviewer${{ env.DEPLOYMENT }}fairdrive.io" -H "uri: *"

@@ -12,8 +12,17 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ github.ref_name }}
     steps:
-      -
-        name: Set up QEMU
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: Set environment specific variables
+        uses: jnus/json-variables@v1.0
+        with:
+          scope: ${{ github.ref_name }}
+          configFile: ".github/workflows/variables.json"
+          secrets: "${{ toJson(secrets.github_token) }}"
+
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
       - name: Setup docker context for buildx
@@ -32,18 +41,7 @@ jobs:
         run: |
           echo "REPO_LC=${OWNER,,}" >>${GITHUB_ENV}
         env:
-          OWNER: '${{ env.REPO_NAME }}'
-
-      - name: set vars per branch
-        id: vars
-        run: |
-          if [ "$GITHUB_REF_NAME" == 'master' ]; then
-              echo "REACT_APP_FAIROSHOST=https://fairos.fairdatasociety.org/" >> "$GITHUB_ENV"
-              echo "REACT_APP_FAIRDRIVEHOST=https://fairdrive.fairdatasociety.org/" >> "$GITHUB_ENV"
-          else
-              echo "REACT_APP_FAIROSHOST=https://fairos.dev.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "REACT_APP_FAIRDRIVEHOST=https://fairdrive.dev.fairdatasociety.org" >> "$GITHUB_ENV"
-          fi
+          OWNER: "${{ env.REPO_NAME }}"
 
       - name: copy ca
         run: |
